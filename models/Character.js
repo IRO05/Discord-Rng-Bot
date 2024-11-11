@@ -13,27 +13,35 @@ const Character = sequelize.define("character", {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    ability1: {
+    race: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    ability2: {
+    move1: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    ability3: {
+    move2: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    ability4: {
+    move3: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    ability5: {
+    move4: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    ability6: {
+    move5: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    ability: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    abilityName: {
         type: DataTypes.STRING,
         allowNull: false,
     },
