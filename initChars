@@ -1,0 +1,3 @@
+const Character = require("./models/Character");
+
+const jonjoe1 = await Character.create({});
