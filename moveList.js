@@ -10,6 +10,19 @@ const moveList = {
         name: "Kick",
         use: useKck,
     },
+    ovrdrv: {
+        name: "Overdrive",
+    },
+    zmpnch: {
+        name: "Zoom punch",
+
+    },
+    plck: {
+        name: "Pluck",
+    },
+    snltyllwod: {
+        name: "Sunlight Yellow Overdrive",
+    },
     
 };
 

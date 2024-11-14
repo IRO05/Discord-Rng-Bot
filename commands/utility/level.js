@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const Box = require("../../models/Box");
 const Character = require("../../models/Character");
 const levelUp = require("../../levelUp");
+const { start } = require('repl');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -40,11 +41,7 @@ module.exports = {
 
                 };
 
-                if(startingLevel + level > 50){
-                    
-                    level = 50;
-                };
-                await interaction.editReply(`leveled up ${charId} ${level} times`);
+                await interaction.editReply(`leveled up ${level - startingLevel} times`);
             }else {
                 await interaction.editReply({content: "you dont have this character"});
 

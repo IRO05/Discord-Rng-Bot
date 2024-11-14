@@ -23,6 +23,7 @@ async function levelUp(box, charId) {
         box[charId + "Pwr"] += Math.round(10 * pwrMod);
         box[charId + "XpNeed"] = 2000;
         box[charId + "Level"] += 1;
+    
     } else if (currLevel < 20) {
 
         box[charId + "Hp"] += Math.round(15 * hpMod);
