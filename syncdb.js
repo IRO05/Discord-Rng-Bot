@@ -1,3 +1,3 @@
-const model = require("./models/Character.js");
+const model = require("./models/Box.js");
 
 model.sync({force: true});
