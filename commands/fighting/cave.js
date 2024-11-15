@@ -4,6 +4,7 @@ const Team = require("../../models/Team");
 const Box = require("../../models/Box");
 const moveList = require("../../moveList");
 const levelBot = require("../../levelBot");
+const botMoves = require("../../botMoves");
 const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
@@ -45,7 +46,7 @@ module.exports = {
                     const slot1Hp = box[slot1 + "Hp"];
                     const slot1Spd = box[slot1 + "Spd"];
                     const slot1Pwr = box[slot1 + "Pwr"];
-                    
+
                     const slot1move1 = box[slot1 + "move1"];
                     if(box[slot1 + "move2"] !== ""){
 
@@ -62,7 +63,7 @@ module.exports = {
                         first = "plyr";
                     }
                     
-                    await confirmation.update({content: `You begin battling the level ${botLevel} ${char.name}. what do you do?`, components: []});
+                    await confirmation.update({content: `You begin battling the level ${botLevel} ${char.name}`, components: []});
                     let won = false;
                     while(!won){
 
