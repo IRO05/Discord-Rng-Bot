@@ -41,9 +41,11 @@ module.exports = {
                 const abilityId = box[char.id + "Ability"];
                 const ability = await Ability.findOne({where: {id: abilityId}});
                 const movesKnown = [char.move1];
+                const abilitiesKnown = [];
                 if(level > 5){
 
                     movesKnown.push(ability.move1);
+                    abilitiesKnown.push(ability.move1);
                 };
                 if(level > 9){
 
@@ -60,7 +62,8 @@ module.exports = {
                 if(level > 39){
 
                     movesKnown.push(ability.move2);
-                }
+                    abilitiesKnown.push(ability.move2);
+                };
                 if(level > 49){
 
                     movesKnown.push(char.move5);
@@ -90,6 +93,10 @@ module.exports = {
                         if(equipped.includes(move)){
 
                             mname += " (equipped)";
+                        };
+                        if(abilitiesKnown.includes(move)){
+
+                            mname = "*(A)* " + mname;
                         };
 
                         embed.addFields({name: mname, value: "description"});

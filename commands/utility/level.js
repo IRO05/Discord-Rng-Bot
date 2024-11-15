@@ -41,7 +41,9 @@ module.exports = {
 
                 };
 
-                await interaction.editReply(`leveled up ${level - startingLevel} times`);
+                const newLevel = box[charId + "Level"];
+
+                await interaction.editReply(`leveled up ${newLevel - startingLevel} times`);
             }else {
                 await interaction.editReply({content: "you dont have this character"});
 
