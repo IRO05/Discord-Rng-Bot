@@ -45,6 +45,17 @@ module.exports = {
                     const slot1Hp = box[slot1 + "Hp"];
                     const slot1Spd = box[slot1 + "Spd"];
                     const slot1Pwr = box[slot1 + "Pwr"];
+                    
+                    const slot1move1 = box[slot1 + "move1"];
+                    if(box[slot1 + "move2"] !== ""){
+
+                        const slot1move2 = box[slot1 + "move2"];
+                    };
+                    if(box[slot1 + "move3"] !== ""){
+
+                        const slot1move3 = box[slot1 + "move3"];
+                    };
+
                     let first = "bot";
                     if(slot1Spd > botSpd){
 

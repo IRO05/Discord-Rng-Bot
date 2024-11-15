@@ -6,15 +6,33 @@ const moveList = {
         name: "Punch",
         use: usePnch,
     },
+    drtybx: {
+        name: "Dirty Boxing",
+    },
+    drn: {
+        name: "Drain",
+    },
+    sngnslsh: {
+        name: "Senguin Slash",
+    },
+    spcrpr: {
+        name: "Space Ripper Eyes",
+    },
+    flshbd: {
+        name: "Flesh Bud"
+    },
+    vprfrz: {
+        name: "Vaporization Freezing Technique",
+    },
     kck: {
         name: "Kick",
         use: useKck,
     },
-    ovrdrv: {
-        name: "Overdrive",
+    ovrdrvbrrg: {
+        name: "Overdrive Barrage",
     },
     zmpnch: {
-        name: "Zoom punch",
+        name: "Zoom Punch",
 
     },
     plck: {
@@ -22,6 +40,12 @@ const moveList = {
     },
     snltyllwod: {
         name: "Sunlight Yellow Overdrive",
+    },
+    ovrdrv: {
+        name: "Overdrive",
+    },
+    scrltod: {
+        name: "Scarlet Overdrive",
     },
     
 };
