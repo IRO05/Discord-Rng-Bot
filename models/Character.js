@@ -41,10 +41,6 @@ const Character = sequelize.define("character", {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    abilityName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     baseHp: {
         type: DataTypes.INTEGER,
         allowNull: false,

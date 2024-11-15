@@ -22,11 +22,6 @@ const Box = sequelize.define("box", {
         allowNull: false,
         defaultValue: "hmn",
     },
-    jonjoe1AbilityName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "Hamon",
-    },
     jonjoe1move1: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -71,7 +66,7 @@ const Box = sequelize.define("box", {
         defaultValue: 0,
 
     },
-    jonejoe1XpNeeded: {
+    jonjoe1XpNeeded: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 1000,
@@ -85,11 +80,6 @@ const Box = sequelize.define("box", {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "vmp",
-    },
-    diojoe1AbilityName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "Vampire",
     },
     diojoe1move1: {
         type: DataTypes.STRING,
@@ -132,7 +122,7 @@ const Box = sequelize.define("box", {
     dioejoe1Xp: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 1,
+        defaultValue: 0,
     },
     diojoe1XpNeeded: {
         type: DataTypes.INTEGER,
