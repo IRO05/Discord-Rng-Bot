@@ -53,14 +53,18 @@ const moveList = {
 function usePnch(pwr){
 
     const pwrMod = Math.round(pwr / 10);
-    return 5 * pwrMod;
+    const damage = Math.floor((Math.random() * 2) + 1) * pwrMod;
+
+    return {dmg: damage};
 
 };
 
 function useKck(pwr){
 
     const pwrMod = Math.round(pwr / 12);
-    return 8 * pwrMod;
+    const damage = Math.floor((Math.random() * 4) + 1) * pwrMod;
+
+    return {dmg: damage};
 
 };
 
