@@ -6,6 +6,7 @@ const Ability = require("../../models/Ability");
 const moveList = require("../../moveList");
 const levelBot = require("../../levelBot");
 const botMoves = require("../../botMoves");
+const defeat = require("../../defeat");
 const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
@@ -93,6 +94,7 @@ module.exports = {
                         .setFooter({text: `${char.name}'s Hp: ${(botHp / botMaxHp).toFixed(2) * 100}%`});
 
                     interaction.editReply({embeds: [embed]});
+                    let winner;
                     while(!won){
                     
                         if(turn === "plyr"){
@@ -104,7 +106,7 @@ module.exports = {
                                 const buttonPressed = await buttons.awaitMessageComponent({filter: collectorFilter, time: 20_000});
                                 if(buttonPressed.customId === "move1"){
 
-                                    await buttonPressed.update({});
+                                    
                                     const moveUse = moveList[slot1move1].use;
                                     const attack = moveUse(slot1Pwr);
                                     let damage = 0;
@@ -112,12 +114,14 @@ module.exports = {
                                         damage = attack.dmg;
                                     };
                                     botHp -= damage;
-                                    const botTotal = (botHp / botMaxHp).toFixed(2) * 100;
-                                    console.log(botTotal)
-                                    embed.data.title = false;
-                                    embed.data.footer = false;
+                                    if(botHp < 0){
+                                        botHp = 0;
+                                    };
+                                    const botTotal = ((botHp / botMaxHp).toFixed(2) * 100).toFixed(2);
+
                                     embed.setTitle(`Your ${playchar.name} used ${moveList[slot1move1].name} for ${damage} damage`)
                                     embed.setFooter({text: `${char.name}'s Hp: ${botTotal}%`});
+                                    await buttonPressed.update({embeds: [embed], components: []});
 
                                 }else if (buttonPressed.customId === "move2"){
 
@@ -130,7 +134,7 @@ module.exports = {
                                 interaction.editReply("You ran out of time to choose your move");
                             };
                             turn = "bot";
-                            won = true;
+                            
                         }else if (turn === "bot"){
 
                             const botroll = botMovesChosen[Math.floor(Math.random() * botMovesChosen.length)]
@@ -142,17 +146,39 @@ module.exports = {
 
                                 damage = attack.dmg;
                             };
-                            console.log(damage);
+                            
                             slot1Hp -= damage;
+                            if(slot1Hp < 0){
+                                slot1Hp = 0;
+                            };
                             embed.data.fields = [];
                             embed.addFields({name: "Health", value: String(slot1Hp), inline: true}, {name: "Speed", value: String(slot1Spd), inline: true}, {name: "Power", value: String(slot1Pwr), inline: true});
-                            await interaction.editReply({content: `The ${char.name} uses ${moveList[botroll].name} for ${damage} damage`, embeds: [embed]});
+                            await interaction.editReply({content: `The ${char.name} uses ${moveList[botroll].name} for ${damage} damage`, embeds: [embed], components: [moveRow]});
                             
                             turn = "plyr";
-                            won = true;
                         }
 
+                        if(slot1Hp <= 0){
+
+                            won = true;
+                            winner = "bot";
+                            interaction.components = null;
+                            interaction.editReply({content: "Bot wins"});
+
+                        }else if(botHp <= 0){
+
+                            won = true;
+                            winner = "plyr";
+                            interaction.components = null;
+                            interaction.editReply({content: "Player wins"});
+                        };
+
                     }
+
+                    if(winner === "plyr"){
+
+                        await defeat(box, slot1, botLevel);
+                    };
 
 
                 }else{
@@ -163,7 +189,7 @@ module.exports = {
             };
         
         } catch (e) {
-			//console.log(e);
+			console.log(e);
 			await interaction.editReply({ content: 'You ran out of time to confirm. ', components: [] });
 		}
 	},
