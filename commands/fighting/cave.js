@@ -41,6 +41,7 @@ module.exports = {
                     const box = await Box.findOne({where: {id: interaction.user.id}});
                     const slot1 = team.slot1;
 
+                    await confirmation.update({components: []});
                     const winner = await battle.botBattle(interaction, [slot1, "", ""], [char.id, "", ""]);
 
             //         const playchar = await Character.findOne({where: {id: slot1}})
@@ -90,7 +91,6 @@ module.exports = {
             //             turn = "plyr";
             //         }
                     
-            //         await confirmation.update({content: `You begin battling the level ${botLevel} ${char.name}`, components: []});
             //         let won = false;
             //         const embed = new EmbedBuilder()
             //             .setDescription(`${playchar.name}: `)

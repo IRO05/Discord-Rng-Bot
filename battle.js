@@ -10,7 +10,7 @@ module.exports = {
     botBattle: async function(interaction, playerTeam, botTeam){
         const slot1 = playerTeam[0];
         const box = await Box.findOne({where: {id: interaction.user.id}});
-        const playChar1 = await Character.findOne({where: {id: box[slot1]}});
+        const playChar1 = await Character.findOne({where: {id: slot1}});
         const playerChars = {
             slot1: true,
             slot1Hp: box[slot1 + "Hp"],
@@ -56,7 +56,7 @@ module.exports = {
         };
         if(playerTeam[1] !== ""){
 
-            const playChar2 = await Character.findOne({where: {id: box[slot2]}});
+            const playChar2 = await Character.findOne({where: {id: slot2}});
             playerChars.slot2 = true;
             playerChars.slot2Hp = box[slot2 + "Hp"];
             playerChars.slot2Max = box[slot2 + "Hp"];
@@ -88,7 +88,7 @@ module.exports = {
         };
         if(playerTeam[2] !== ""){
 
-            const playChar3 = await Character.findOne({where: {id: box[slot3]}});
+            const playChar3 = await Character.findOne({where: {id: slot3}});
             playerChars.slot3 = true;
             playerChars.slot3Hp = box[slot3 + "Hp"];
             playerChars.slot3Max = box[slot3 + "Hp"];
@@ -130,7 +130,7 @@ module.exports = {
             slot1Spd: botStats1.Pwr,
             slot2: false,
             slot3: false,
-            slot1BotMoves: botMoves(botChar1.id, botLevel),
+            slot1BotMoves: await botMoves(botChar1.id, botLevel),
         };
         if(botTeam[1] !== ""){
             const botChar2 = await Character.findOne({where: {id: botTeam[1]}});
@@ -160,7 +160,6 @@ module.exports = {
 
         let turn = (playerChars.slot1Spd > botChars.slot1Spd)? "plyr": "bot";
         const collectorFilter = i => i.user.id === interaction.user.id;
-        console.log({turn, playerChars, botChars});
         let won = false;
         let winner;
         let playSlot = 1;
@@ -185,11 +184,12 @@ module.exports = {
                                 damage = moveUsed.dmg;
                             };
                             
+                            let botHealth;
                             if(botSlot === 1){
 
                                 botChars.slot1Hp -= damage;
 
-                                const botHealth = (botChars.slot1Hp / botChars.slot1Max).toFixed(2);
+                                botHealth = (botChars.slot1Hp / botChars.slot1Max).toFixed(2);
 
                             }else if(botSlot === 2){
 
@@ -197,8 +197,8 @@ module.exports = {
 
                             };
 
-                            embed.setTitle(`Your ${playChar1.name} used ${moveList[slot1move1].name} for ${damage} damage`);
-                            embed.setFooter({text: `${playChar1.name}'s Hp: ${botHealth}%`});
+                            embed.setTitle(`Your ${playChar1.name} used ${moveList[playerChars.slot1move1].name} for ${damage} damage`);
+                            embed.setFooter({text: `${botChar1.name}'s Hp: ${botHealth}%`});
                             await buttonPressed.update({embeds: [embed], components: []});
                             turn = "bot";
                             
@@ -225,15 +225,21 @@ module.exports = {
                 if(botSlot === 1){
 
                     const roll = moveList[botChars.slot1BotMoves[Math.floor(Math.random() * botChars.slot1BotMoves.length)]];
+                
                     const rolluse = roll.use;
 
                     const moveused = rolluse(botChars.slot1Pwr);
                     const damage = (moveused.dmg)? moveused.dmg: 0;
+                    let currHealth;
+                    if(playSlot === 1){
+                        currHealth = playerChars.slot1Hp;
+                    }else if(playSlot === 2){
+                        currHealth = playerChars.slot2Hp;
+                    }else if(playSlot === 3){
+                        currHealth = playerChars.slot3Hp;
+                    };
 
-                    botChars.slot1Hp -= damage;
-
-                    embed.data.fields = [];
-                    embed.addFields({name: "Health", value: String(slot1Hp), inline: true}, {name: "Speed", value: String(slot1Spd), inline: true}, {name: "Power", value: String(slot1Pwr), inline: true});
+                    embed.data.fields[0].value = currHealth;
                     await interaction.editReply({content: `The ${botChar1.name} uses ${roll.name} for ${damage} damage`, embeds: [embed], components: [currRow]});
                     turn = "plyr";
 
