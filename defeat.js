@@ -25,6 +25,7 @@ module.exports = async function defeat(box, playerId, botlevel){
         const xp =  box[playerId + "Xp"] - box[playerId + "XpNeeded"];
         await levelUp(box, playerId, xp);
     };
+    
 
     await box.save();
 };
