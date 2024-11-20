@@ -64,7 +64,7 @@ function useKck(pwr){
     const pwrMod = Math.round(pwr / 12);
     const damage = Math.floor((Math.random() * 4) + 1) * pwrMod;
 
-    return {dmg: damage};
+        return {dmg: damage};
 
 };
 

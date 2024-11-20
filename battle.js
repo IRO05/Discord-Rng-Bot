@@ -19,6 +19,7 @@ module.exports = {
             slot1Pwr: box[slot1 + "Pwr"],
             slot2: false,
             slot3: false,
+            living: 1,
         };
         playerChars.slot1move1 = box[slot1 + "move1"];
         const s1move1Button = new ButtonBuilder()
@@ -63,6 +64,7 @@ module.exports = {
             playerChars.slot2Spd = box[slot2 +  "Spd"];
             playerChars.slot2Pwr = box[slot2 + "Pwr"];
             playerChars.slot2move1 = box[slot2 + "move1"];
+            playerChars.living += 1;
             const s2move1Button = new ButtonBuilder()
                 .setCustomId("move1")
                 .setLabel(moveList[box[slot2 + "move1"]].name)
@@ -95,6 +97,7 @@ module.exports = {
             playerChars.slot3Spd = box[slot3 +  "Spd"];
             playerChars.slot3Pwr = box[slot3 + "Pwr"];
             playerChars.slot3move1 = box[slot3 + "move1"];
+            playerChars.living += 1;
             const s3move1Button = new ButtonBuilder()
                 .setCustomId("move1")
                 .setLabel(moveList[playerChars.slot3move1].name)
@@ -127,9 +130,10 @@ module.exports = {
             slot1Hp: botStats1.Hp,
             slot1Max: botStats1.Hp,
             slot1Spd: botStats1.Spd,
-            slot1Spd: botStats1.Pwr,
+            slot1Pwr: botStats1.Pwr,
             slot2: false,
             slot3: false,
+            living: 1,
             slot1BotMoves: await botMoves(botChar1.id, botLevel),
         };
         if(botTeam[1] !== ""){
@@ -139,6 +143,7 @@ module.exports = {
             botChars.slot2Max = botStats2.Hp;
             botChars.slot2Spd = botStats2.Spd;
             botChars.slot2Pwr = botStats2.Pwr;
+            botChars.living += 1;
             botChars.slot2BotMoves = botMoves(botChar2.id, botLevel);
         };
         if(botTeam[2] !== ""){
@@ -148,6 +153,7 @@ module.exports = {
             botChars.slot3Max = botStats3.Hp;
             botChars.slot3Spd = botStats3.Spd;
             botChars.slot3Pwr = botStats3.Pwr;
+            botChars.living += 1;
             botChars.slot3BotMoves = botMoves(botChar3.id, botLevel);
         };
 
@@ -191,6 +197,12 @@ module.exports = {
 
                                 botHealth = (botChars.slot1Hp / botChars.slot1Max).toFixed(2);
 
+                                if(botChars.slot1Hp <= 0){
+
+                                    botChars.living -= 1;
+                                    botHealth = 0;
+                                };
+
                             }else if(botSlot === 2){
 
                             }else if(botSlot === 3){
@@ -229,14 +241,33 @@ module.exports = {
                     const rolluse = roll.use;
 
                     const moveused = rolluse(botChars.slot1Pwr);
+                    
                     const damage = (moveused.dmg)? moveused.dmg: 0;
                     let currHealth;
                     if(playSlot === 1){
+                        playerChars.slot1Hp -= damage;
+                        
                         currHealth = playerChars.slot1Hp;
+                        if(playerChars.slot1Hp < 1){
+                            playerChars.living -= 1;
+                            currHealth = 0;
+                        };
                     }else if(playSlot === 2){
+                        playerChars.slot2Hp -= damage;
+                        
                         currHealth = playerChars.slot2Hp;
+                        if(playerChars.slot2Hp < 1){
+                            playerChars.living -= 1;
+                            currHealth = 0;
+                        };
                     }else if(playSlot === 3){
+                        playerChars.slot3Hp -= damage;
+                        
                         currHealth = playerChars.slot3Hp;
+                        if(playerChars.slot3Hp < 1){
+                            playerChars.living -= 1;
+                            currHealth = 0;
+                        };
                     };
 
                     embed.data.fields[0].value = currHealth;
@@ -251,6 +282,23 @@ module.exports = {
 
                 };
             };
+
+
+            if(playerChars.living < 1 || botChars.living < 1){
+
+                won = true;
+                if (botChars.living < 1){
+
+                    winner = "plyr";
+                }else if (playerChars.living < 1){
+
+                    winner = "bot";
+                
+                };
+
+                return winner;
+            };
+
         };
 
 
