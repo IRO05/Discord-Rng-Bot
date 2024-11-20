@@ -53,7 +53,7 @@ module.exports = {
 
                 }else{
 
-                    interaction.editReply("You dont have a team");
+                    confirmation.update({content: "You dont have a team"});
                 };
 
             };

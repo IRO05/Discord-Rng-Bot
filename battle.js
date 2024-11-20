@@ -4,6 +4,7 @@ const botMoves = require("./botMoves");
 const Character = require("./models/Character");
 const {SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, EmbedBuilder } = require("discord.js");
 const moveList = require("./moveList");
+const defeat = require("./defeat");
 
 module.exports = {
 
@@ -201,12 +202,33 @@ module.exports = {
 
                                     botChars.living -= 1;
                                     botHealth = 0;
+                                    await defeat(box, box[slot1], botLevel);
                                 };
 
                             }else if(botSlot === 2){
 
+                                botChars.slot2Hp -= damage;
+
+                                botHealth = (botChars.slot2Hp / botChars.slot2Max).toFixed(2);
+
+                                if(botChars.slot2Hp <= 0){
+
+                                    botChars.living -= 1;
+                                    botHealth = 0;
+                                    await defeat(box, box[slot1], botLevel);
+                                };
                             }else if(botSlot === 3){
 
+                                botChars.slot3Hp -= damage;
+
+                                botHealth = (botChars.slot3Hp / botChars.slot3Max).toFixed(2);
+
+                                if(botChars.slot3Hp <= 0){
+
+                                    botChars.living -= 1;
+                                    botHealth = 0;
+                                    await defeat(box, box[slot1], botLevel);
+                                };
                             };
 
                             embed.setTitle(`Your ${playChar1.name} used ${moveList[playerChars.slot1move1].name} for ${damage} damage`);
@@ -216,7 +238,105 @@ module.exports = {
                             
                         }else if(playSlot === 2){
 
+                            const moveUse = moveList[playerChars.slot2move1].use;
+                            const moveUsed = moveUse(playerChars.slot2Pwr);
+                            let damage = 0;
+                            if(moveUsed.dmg){
+                                damage = moveUsed.dmg;
+                            };
+                            
+                            let botHealth;
+                            if(botSlot === 1){
+
+                                botChars.slot1Hp -= damage;
+
+                                botHealth = (botChars.slot1Hp / botChars.slot1Max).toFixed(2);
+
+                                if(botChars.slot1Hp <= 0){
+
+                                    botChars.living -= 1;
+                                    botHealth = 0;
+                                };
+
+                            }else if(botSlot === 2){
+
+                                botChars.slot2Hp -= damage;
+
+                                botHealth = (botChars.slot2Hp / botChars.slot2Max).toFixed(2);
+
+                                if(botChars.slot2Hp <= 0){
+
+                                    botChars.living -= 1;
+                                    botHealth = 0;
+                                };
+                            }else if(botSlot === 3){
+
+                                botChars.slot3Hp -= damage;
+
+                                botHealth = (botChars.slot3Hp / botChars.slot3Max).toFixed(2);
+
+                                if(botChars.slot3Hp <= 0){
+
+                                    botChars.living -= 1;
+                                    botHealth = 0;
+                                };
+                            };
+
+                            embed.setTitle(`Your ${playChar1.name} used ${moveList[playerChars.slot1move1].name} for ${damage} damage`);
+                            embed.setFooter({text: `${botChar1.name}'s Hp: ${botHealth}%`});
+                            await buttonPressed.update({embeds: [embed], components: []});
+                            turn = "bot";
+
                         }else if(playSlot == 3){
+
+                            const moveUse = moveList[playerChars.slot3move1].use;
+                            const moveUsed = moveUse(playerChars.slot3Pwr);
+                            let damage = 0;
+                            if(moveUsed.dmg){
+                                damage = moveUsed.dmg;
+                            };
+                            
+                            let botHealth;
+                            if(botSlot === 1){
+
+                                botChars.slot1Hp -= damage;
+
+                                botHealth = (botChars.slot1Hp / botChars.slot1Max).toFixed(2);
+
+                                if(botChars.slot1Hp <= 0){
+
+                                    botChars.living -= 1;
+                                    botHealth = 0;
+                                };
+
+                            }else if(botSlot === 2){
+
+                                botChars.slot2Hp -= damage;
+
+                                botHealth = (botChars.slot2Hp / botChars.slot2Max).toFixed(2);
+
+                                if(botChars.slot2Hp <= 0){
+
+                                    botChars.living -= 1;
+                                    botHealth = 0;
+                                };
+                            }else if(botSlot === 3){
+
+                                botChars.slot3Hp -= damage;
+
+                                botHealth = (botChars.slot3Hp / botChars.slot3Max).toFixed(2);
+
+                                if(botChars.slot3Hp <= 0){
+
+                                    botChars.living -= 1;
+                                    botHealth = 0;
+                                };
+                            };
+
+                            embed.setTitle(`Your ${playChar1.name} used ${moveList[playerChars.slot1move1].name} for ${damage} damage`);
+                            embed.setFooter({text: `${botChar1.name}'s Hp: ${botHealth}%`});
+                            await buttonPressed.update({embeds: [embed], components: []});
+                            turn = "bot";
 
                         };
                     }else if(buttonPressed.customId === "move2"){
