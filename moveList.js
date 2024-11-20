@@ -30,22 +30,28 @@ const moveList = {
     },
     ovrdrvbrrg: {
         name: "Overdrive Barrage",
+        use: useOvrdrvbrrg,
     },
     zmpnch: {
         name: "Zoom Punch",
+        use: useZmpnch,
 
     },
     plck: {
         name: "Pluck",
+        use: usePlck,
     },
     snltyllwod: {
         name: "Sunlight Yellow Overdrive",
+        use: useSnltyllwod,
     },
     ovrdrv: {
         name: "Overdrive",
+        use: useOvrdrv,
     },
     scrltod: {
         name: "Scarlet Overdrive",
+        use: useScrltod,
     },
     
 };
@@ -68,5 +74,52 @@ function useKck(pwr){
 
 };
 
+function useOvrdrvbrrg(pwr){
+
+};
+
+function useZmpnch(pwr){
+
+};
+
+function usePlck(pwr){
+
+};
+
+function useSnltyllwod(pwr){
+
+};
+
+function useOvrdrv(pwr){
+
+};
+
+function useScrltod(pwr){
+
+};
+
+function useDrtybx(pwr){
+
+};
+
+function useDrn(pwr){
+
+};
+
+function useSngnslsh(pwr){
+
+};
+
+function useSpcrpr(pwr){
+
+};
+
+function useFlshbd(pwr){
+
+};
+
+function useVprfrz(pwr){
+
+};
 
 module.exports = moveList;
