@@ -2,6 +2,10 @@ const { SlashCommandBuilder } = require('discord.js');
 const Box = require("../../models/Box");
 const defeat = require("../../defeat");
 
+/* Desc:
+    allows an admin to give xp to a chracter in their box by simulating battles won 
+*/
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('xp')

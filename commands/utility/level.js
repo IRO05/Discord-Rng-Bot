@@ -4,6 +4,10 @@ const Character = require("../../models/Character");
 const levelUp = require("../../levelUp");
 const { start } = require('repl');
 
+/* Desc:
+    allows an admin to level up a character in their box 
+*/
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('level')

@@ -1,6 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js');
 const Box = require("../../models/Box");
 
+/* Desc:
+allows for an admin to claim a character without having to roll
+*/
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('claim')

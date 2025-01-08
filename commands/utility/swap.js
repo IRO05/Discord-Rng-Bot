@@ -2,6 +2,10 @@ const { SlashCommandBuilder } = require('discord.js');
 const Character = require("../../models/Character");
 const Box = require("../../models/Box");
 
+/* Desc:
+    allows an admin to swap the ability of a character in their box with another characters ability
+*/
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('swap')
