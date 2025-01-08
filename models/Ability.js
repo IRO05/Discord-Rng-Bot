@@ -1,6 +1,14 @@
 const {Sequelize, DataTypes} = require("sequelize");
 const sequelize = require("./database");
 
+/*
+Schema for ability table
+id to hold the abilities unique id of the ability
+move1 to hold a move id
+move2 to hold a move id
+
+*/
+
 const Ability = sequelize.define("ability", {
 
     id: {

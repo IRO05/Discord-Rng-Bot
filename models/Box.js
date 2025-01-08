@@ -4,6 +4,19 @@ const { defaultValueSchemable } = require("sequelize/lib/utils");
 const { allowedNodeEnvironmentFlags } = require("process");
 const Character = require("../models/Character");
 
+/*
+Schema for box table
+id to hold the id of the player whos box it is
+[charid] to hold a boolean for if that player has the character in their box
+[charid]Ability to hold what ability id that player's character holds
+[charid]move to hold a boolean for if the player's character has unlocked that move
+[charid]hp to hold the player's character health stat
+[charid]pwr to hold the player's character power stat 
+[charid]spd to hold the player's character speed stat 
+[charid]level to hold the level of the player's character 
+[charid]xpneeded to hold how much xp the character needs to the next level
+*/
+
 const Box = sequelize.define("box", {
 
     id: {

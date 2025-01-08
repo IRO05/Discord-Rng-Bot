@@ -1,6 +1,12 @@
 const {Sequelize, DataTypes} = require("sequelize");
 const sequelize = require("./database");
 
+/*
+Schema for players team
+id for the players id
+slot1..3 to hold the id of the character equipped to each slot
+*/
+
 const Team = sequelize.define("team", {
 
     id: {

@@ -1,6 +1,19 @@
 const { Sequelize, DataTypes} = require("sequelize");
 const sequelize = require("./database");
 
+/*
+Schema for character table
+id to hold the characters id
+name to hold the characters name
+race to hold the chracters race
+move1..5 to hold the move id
+ability to hold the default ability
+baseHp to hold the base health stat
+baseSpd to hold the base speed stat
+basePwr to hold the base power stat
+url to hold the image url
+*/
+
 const Character = sequelize.define("character", {
 
     id: {
